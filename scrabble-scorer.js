@@ -32,9 +32,9 @@ function oldScrabbleScorer(word) {
 // don't change the names or your program won't work as expected. //
 
 function initialPrompt() {
-   info = input.question("Let's play some scrabble! \n\nEnter a word to score: ");
-   console.log(oldScrabbleScorer(info));
-   return;
+   let info = input.question("Let's play some scrabble! \n\nEnter a word to score: ");
+   // console.log(oldScrabbleScorer(info));
+   return info;
 };
 
 let newPointStructure;
@@ -72,26 +72,37 @@ const scoringAlgorithms = [
    {
       "name": "Simple Score",
       "description": "Each letter is worth 1 point.",
-      "score function": "A function with a parameter for user input that returns a score."
+      "scorerFunction": simpleScorer()
    },
    {
-      "name": "Bonus Vowels",
-      "description": "Vowels are 3 pts, consonants are 1 pt.", "score function": "A function that returns a score based on the number of vowels and consonants."
+      "name": "Vowel Bonus",
+      "description": "Vowels are 3 points.",
+      "scorerFunction": vowelBonusScorer()
    },
    {
       "name": "Scrabble",
-      "description": "The traditional scoring algorithm.",
-      "score function": "Uses the oldScrabbleScorer() function to determine the score for a given word."
+      "description": "Uses scabble point system.",
+      "scorerFunction": oldScrabbleScorer()
    }
 ];
 
-function scorerPrompt() { }
+function scorerPrompt() {
+   let scorerOptions = "0 - Simple: One point per character \n1 - Vowel Bonus: Vowels are worth 3 points \n2 - Scrabble: Uses scrabble point system";
+   let scorerProgramIndex = input.question(`Which scoring algorithm would you like to use? \n\n${scorerOptions}\nEnter 0, 1, or 2: `);
+   while (scorerProgramIndex < 0 || scorerProgramIndex > 2 || isNaN(scorerProgramIndex)) {
+      scorerProgramIndex = input.question(`Please enter a number from 0-2. What scoring algorithym would you like to use? ${scorerOptions}`);
+   }
+   return 
+};
+// create an array with the scorer functions, from the user input, call the relavant algorithym and print the word and score
 
 function transform() { };
 
 function runProgram() {
    initialPrompt();
-
+   scorerPrompt();
+   
+   // Somehow I need to take the returned index from the user's response and call the selected algorithym, printing the word and score
 }
 
 // Don't write any code below this line //

@@ -72,17 +72,17 @@ const scoringAlgorithms = [
    {
       "name": "Simple Score",
       "description": "Each letter is worth 1 point.",
-      "scorerFunction": simpleScorer()
+      "scorerFunction": simpleScorer
    },
    {
       "name": "Vowel Bonus",
       "description": "Vowels are 3 points.",
-      "scorerFunction": vowelBonusScorer()
+      "scorerFunction": vowelBonusScorer
    },
    {
       "name": "Scrabble",
       "description": "Uses scabble point system.",
-      "scorerFunction": oldScrabbleScorer()
+      "scorerFunction": oldScrabbleScorer
    }
 ];
 
@@ -92,7 +92,7 @@ function scorerPrompt() {
    while (scorerProgramIndex < 0 || scorerProgramIndex > 2 || isNaN(scorerProgramIndex)) {
       scorerProgramIndex = input.question(`Please enter a number from 0-2. What scoring algorithym would you like to use? ${scorerOptions}`);
    }
-   return 
+   return scoringAlgorithms[scorerProgramIndex];
 };
 // create an array with the scorer functions, from the user input, call the relavant algorithym and print the word and score
 
@@ -101,10 +101,11 @@ function transform() { };
 function runProgram() {
    initialPrompt();
    scorerPrompt();
-   
+
    // Somehow I need to take the returned index from the user's response and call the selected algorithym, printing the word and score
 }
-
+console.log("algorithym name: ", scoringAlgorithms[2].name);
+console.log("scorerFunction result: ", scoringAlgorithms[2].scorerFunction('JavaScript'));
 // Don't write any code below this line //
 // And don't change these or your program will not run as expected //
 module.exports = {

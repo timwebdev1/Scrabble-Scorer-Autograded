@@ -92,20 +92,21 @@ function scorerPrompt() {
    while (scorerProgramIndex < 0 || scorerProgramIndex > 2 || isNaN(scorerProgramIndex)) {
       scorerProgramIndex = input.question(`Please enter a number from 0-2. What scoring algorithym would you like to use? ${scorerOptions}`);
    }
-   return scoringAlgorithms[scorerProgramIndex];
+   return scoringAlgorithms[scorerProgramIndex].scorerFunction;
 };
 // create an array with the scorer functions, from the user input, call the relavant algorithym and print the word and score
 
 function transform() { };
 
 function runProgram() {
-   initialPrompt();
-   scorerPrompt();
-
-   // Somehow I need to take the returned index from the user's response and call the selected algorithym, printing the word and score
+   let wordInput = initialPrompt();
+   let scorerFunction = scorerPrompt();
+   let score = scorerFunction(wordInput);
+   console.log(`Score for'${wordInput}': ${score}`);
 }
-console.log("algorithym name: ", scoringAlgorithms[2].name);
-console.log("scorerFunction result: ", scoringAlgorithms[2].scorerFunction('JavaScript'));
+// console.log("algorithym name: ", scoringAlgorithms[2].name);
+// console.log("scorerFunction result: ", scoringAlgorithms[2].scorerFunction('JavaScript'));
+
 // Don't write any code below this line //
 // And don't change these or your program will not run as expected //
 module.exports = {

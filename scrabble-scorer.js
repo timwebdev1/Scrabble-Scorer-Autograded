@@ -37,7 +37,7 @@ function initialPrompt() {
    return info;
 };
 
-let newPointStructure;
+let newPointStructure = {}; //TODO: make this an object of 26 letter keys and the values consistent with the points from the oldPointStructure
 
 let simpleScorer = function (word) {
    word = word.toUpperCase();
@@ -94,18 +94,38 @@ function scorerPrompt() {
    }
    return scoringAlgorithms[scorerProgramIndex].scorerFunction;
 };
-// create an array with the scorer functions, from the user input, call the relavant algorithym and print the word and score
 
-function transform() { };
+function transform(oldPointStructureObject) {
+   let newPointStructureObject = {};
+   // loop through object
+
+   for (let item in oldPointStructureObject) {
+      // data variables need for new object
+      let currentObject = oldPointStructureObject[item];
+      let newKey = currentObject.type.toLowerCase();
+      let newValue = currentObject.item.toLowerCase();
+
+// add these to new object key:value pair
+      newPointStructureObject[newKey] = newValue;
+
+   }
+   return newPointStructureObject;
+};
+console.log("Letters with score '4':", oldPointStructure[4]);
+console.log("3rd letter within the key '4' array:", oldPointStructure[4][2]);
+
+let letters = oldPointStructure[8];
+console.log("Letters with score '8':", letters);
+console.log("2nd letter within the key '8' array:", letters[1]);
 
 function runProgram() {
    let wordInput = initialPrompt();
    let scorerFunction = scorerPrompt();
    let score = scorerFunction(wordInput);
-   console.log(`Score for'${wordInput}': ${score}`);
+   // let transformOldToNew = transform(oldPointStructure);
+   console.log(`Score for '${wordInput}': ${score}`);
+
 }
-// console.log("algorithym name: ", scoringAlgorithms[2].name);
-// console.log("scorerFunction result: ", scoringAlgorithms[2].scorerFunction('JavaScript'));
 
 // Don't write any code below this line //
 // And don't change these or your program will not run as expected //

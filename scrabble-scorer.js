@@ -99,11 +99,11 @@ function transform(oldPointStructureObject) {
    let newPointStructureObject = {};
    // loop through object
 
-   for (let item in oldPointStructureObject) {
-      // data variables need for new object
-      let currentObject = oldPointStructureObject[item];
-      let newKey = currentObject.type.toLowerCase();
-      let newValue = currentObject.item.toLowerCase();
+   // for (let item in oldPointStructureObject) {
+   //    // data variables need for new object
+   //    let currentObject = oldPointStructureObject[item];
+   //    let newKey = currentObject.type.toLowerCase();
+   //    let newValue = currentObject.item.toLowerCase();
 
 // add these to new object key:value pair
       newPointStructureObject[newKey] = newValue;

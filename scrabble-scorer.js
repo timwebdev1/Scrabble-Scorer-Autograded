@@ -33,11 +33,11 @@ function oldScrabbleScorer(word) {
 
 function initialPrompt() {
    let info = input.question("Let's play some scrabble! \n\nEnter a word to score: ");
-   // console.log(oldScrabbleScorer(info));
    return info;
 };
 
-let newPointStructure = {}; //TODO: make this an object of 26 letter keys and the values consistent with the points from the oldPointStructure
+let newPointStructure = transform(oldPointStructure);
+console.log(newPointStructure);
 
 let simpleScorer = function (word) {
    word = word.toUpperCase();
@@ -66,7 +66,18 @@ let vowelBonusScorer = function (word) {
    return letterPoints;
 };
 
-let scrabbleScorer;
+let scrabbleScorer = function (word) {
+   // word = word.toUpperCase();
+   let letterPoints = 0;
+
+   for (let i = 0; i < word.length; i++) {
+      let character = word[i];
+      if (newPointStructure[character]) {
+         letterPoints += newPointStructure[character];
+      }
+   }
+   return letterPoints;
+};
 
 const scoringAlgorithms = [
    {
@@ -82,7 +93,7 @@ const scoringAlgorithms = [
    {
       "name": "Scrabble",
       "description": "Uses scabble point system.",
-      "scorerFunction": oldScrabbleScorer
+      "scorerFunction": scrabbleScorer
    }
 ];
 
@@ -99,30 +110,31 @@ function transform(oldPointStructureObject) {
    let newPointStructureObject = {};
    // loop through object
 
-   // for (let item in oldPointStructureObject) {
-   //    // data variables need for new object
-   //    let currentObject = oldPointStructureObject[item];
-   //    let newKey = currentObject.type.toLowerCase();
-   //    let newValue = currentObject.item.toLowerCase();
+   for (let key in oldPointStructureObject) {
+      let letters = oldPointStructureObject[key];
 
-// add these to new object key:value pair
-      newPointStructureObject[newKey] = newValue;
-
+      // loop through each letter in the array
+      for (let i = 0; i < letters.length; i++) {
+         let letter = letters[i].toLowerCase();
+         newPointStructureObject[letter] = Number(key);
+      }
    }
    return newPointStructureObject;
 };
-console.log("Letters with score '4':", oldPointStructure[4]);
-console.log("3rd letter within the key '4' array:", oldPointStructure[4][2]);
 
-let letters = oldPointStructure[8];
-console.log("Letters with score '8':", letters);
-console.log("2nd letter within the key '8' array:", letters[1]);
+
+// console.log("Letters with score '4':", oldPointStructure[4]);
+// console.log("3rd letter within the key '4' array:", oldPointStructure[4][2]);
+
+// let letters = oldPointStructure[8];
+// console.log("Letters with score '8':", letters);
+// console.log("2nd letter within the key '8' array:", letters[1]);
 
 function runProgram() {
    let wordInput = initialPrompt();
    let scorerFunction = scorerPrompt();
    let score = scorerFunction(wordInput);
-   // let transformOldToNew = transform(oldPointStructure);
+   let transformOldToNew = transform(oldPointStructure);
    console.log(`Score for '${wordInput}': ${score}`);
 
 }

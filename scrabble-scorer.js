@@ -37,7 +37,7 @@ function initialPrompt() {
 };
 
 let newPointStructure = transform(oldPointStructure);
-console.log(newPointStructure);
+// console.log(newPointStructure);
 
 let simpleScorer = function (word) {
    word = word.toUpperCase();
@@ -108,7 +108,6 @@ function scorerPrompt() {
 
 function transform(oldPointStructureObject) {
    let newPointStructureObject = {};
-   // loop through object
 
    for (let key in oldPointStructureObject) {
       let letters = oldPointStructureObject[key];
@@ -122,21 +121,12 @@ function transform(oldPointStructureObject) {
    return newPointStructureObject;
 };
 
-
-// console.log("Letters with score '4':", oldPointStructure[4]);
-// console.log("3rd letter within the key '4' array:", oldPointStructure[4][2]);
-
-// let letters = oldPointStructure[8];
-// console.log("Letters with score '8':", letters);
-// console.log("2nd letter within the key '8' array:", letters[1]);
-
 function runProgram() {
    let wordInput = initialPrompt();
    let scorerFunction = scorerPrompt();
    let score = scorerFunction(wordInput);
-   let transformOldToNew = transform(oldPointStructure);
+   transform(oldPointStructure);
    console.log(`Score for '${wordInput}': ${score}`);
-
 }
 
 // Don't write any code below this line //
